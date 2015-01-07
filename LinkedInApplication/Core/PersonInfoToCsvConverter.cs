@@ -9,12 +9,12 @@ namespace LinkedInApplication.Core
         public static string Convert(IEnumerable<PersonInfo> personInfos)
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.AppendFormat("First Name;Last Name;Headline;Company" + Environment.NewLine);
+            stringBuilder.AppendFormat("Company;First Name;Last Name;Headline;Url;Location;Email" + Environment.NewLine);
 
             foreach (var personInfo in personInfos)
             {
-                stringBuilder.AppendFormat("{0};{1};{2};{3}{4}", personInfo.FirstName, personInfo.LastName,
-                    personInfo.Headline, personInfo.Company, Environment.NewLine);
+                stringBuilder.AppendFormat("{0};{1};{2};{3};{4};{5};{6};{7}", personInfo.CompanyName, personInfo.FirstName, personInfo.LastName,
+                    personInfo.Headline, personInfo.CompanyWebSite, personInfo.CompanyLocation, personInfo.Email, Environment.NewLine);
             }
 
             return stringBuilder.ToString();

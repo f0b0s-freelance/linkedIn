@@ -30,72 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetOpenAuth.Core">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.Core.UI">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.Core.UI.4.3.4.13329\lib\net45-full\DotNetOpenAuth.Core.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.InfoCard">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.InfoCard.4.3.4.13329\lib\net45-full\DotNetOpenAuth.InfoCard.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.InfoCard.UI">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.InfoCard.UI.4.3.4.13329\lib\net45-full\DotNetOpenAuth.InfoCard.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OAuth.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth.Common">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OAuth.Common.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth.Consumer">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OAuth.Consumer.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth.ServiceProvider">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OAuth.ServiceProvider.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.ServiceProvider.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth2">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OAuth2.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth2.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth2.AuthorizationServer">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OAuth2.AuthorizationServer.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth2.AuthorizationServer.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth2.Client">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OAuth2.Client.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth2.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth2.Client.UI">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OAuth2.Client.UI.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth2.Client.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth2.ClientAuthorization">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OAuth2.ClientAuthorization.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth2.ClientAuthorization.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth2.ResourceServer">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OAuth2.ResourceServer.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth2.ResourceServer.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OpenId.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.Provider">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OpenId.Provider.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.Provider.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.Provider.UI">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OpenId.Provider.UI.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.Provider.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OpenId.RelyingParty.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty.UI">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OpenId.RelyingParty.UI.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.UI">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OpenId.Core.UI.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenIdInfoCard.UI">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OpenIdInfoCard.UI.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenIdInfoCard.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenIdOAuth">
-      <HintPath>..\LinkedInApplication\packages\DotNetOpenAuth.OpenIdOAuth.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenIdOAuth.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\LinkedInApplication\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -125,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LinkedInApplication\LinkedInApplication.csproj">
-      <Project>{95FC31A0-CDAC-4B5B-B93C-2C14A67025B3}</Project>
+      <Project>{95fc31a0-cdac-4b5b-b93c-2c14a67025b3}</Project>
       <Name>LinkedInApplication</Name>
     </ProjectReference>
   </ItemGroup>

@@ -30,11 +30,13 @@ namespace LinkedInApplication.Core
 
         private static async Task<string> DownloadContent(Uri url)
         {
-            var httpClient = new HttpClient();
+          using (var httpClient = new HttpClient())
+          {
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Key);
             var result = await httpClient.GetAsync(url);
             var content = await result.Content.ReadAsStringAsync();
             return content;
+          }
         }
     }
 }

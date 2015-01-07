@@ -3,8 +3,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Xml.Linq;
-using LinkedInApplication.Core;
 using NUnit.Framework;
+using LinkedInApplication.Core;
 
 namespace LinkedInApplicationTests
 {
@@ -72,6 +72,15 @@ namespace LinkedInApplicationTests
             Console.WriteLine(result);
         }
 
+        [Test]
+        public void GetCompanyProfile()
+        {
+            var url = new Uri(String.Format("https://api.linkedin.com/v1/companies/2219005:(id,name,website-url,locations:(address:(state,city)))"));
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", key);
+            var result = httpClient.GetAsync(url).Result;
+            Console.WriteLine(result);
+        }
 
         [Test]
         public void SearchByFacet1()
@@ -79,7 +88,7 @@ namespace LinkedInApplicationTests
             var url =
                 new Uri(
                     string.Format(
-                        "https://api.linkedin.com/v1/people-search:(people:(first-name,headline,positions))?facets={0}&facet={1}&facet={2}&title=CEO&current-title=true",
+                        "https://api.linkedin.com/v1/people-search:(people:(first-name,headline,positions,location:(name)))?facets={0}&facet={1}&facet={2}&title=CEO&current-title=true",
                         Uri.EscapeDataString("location,industry"),
                         Uri.EscapeDataString("location,ru:7487,ru:7481"),
                         Uri.EscapeDataString("industry,6")));
@@ -99,7 +108,7 @@ namespace LinkedInApplicationTests
                            FirstName = firstName != null ? firstName.Value : string.Empty,
                            LastName = lastName != null ? lastName.Value : string.Empty,
                            Headline = headline != null ? headline.Value : string.Empty,
-                           Company = company != null ? company.Value : string.Empty,
+                           CompanyName = company != null ? company.Value : string.Empty,
                        };
 
             foreach (var people in peoples)
@@ -107,7 +116,7 @@ namespace LinkedInApplicationTests
                 Console.WriteLine(people.FirstName);
                 Console.WriteLine(people.LastName);
                 Console.WriteLine(people.Headline);
-                Console.WriteLine(people.Company);
+                Console.WriteLine(people.CompanyName);
                 Console.WriteLine("=======================");
             }
 
@@ -129,19 +138,6 @@ namespace LinkedInApplicationTests
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", key);
             var result = httpClient.GetAsync(url).Result;
             Console.WriteLine(result);
-        }
-
-        [Test]
-        public void Test3()
-        {
-            oAuthLinkedIn _oauth = new oAuthLinkedIn();
-            _oauth.ConsumerKey = "npq2v0qgrl9y";
-            _oauth.ConsumerSecret = "50DUgVK6Cl6RwMRy";
-            _oauth.Verifier = "http://www.google.com";
-            _oauth.Token = "2bec4d34-928c-46b4-99b7-27db00bd2fec";
-            _oauth.TokenSecret = "93e725be-186d-4f65-9ae6-b21f62d709a5";
-
-            _oauth.AccessTokenGet("2bec4d34-928c-46b4-99b7-27db00bd2fec");
         }
     }
 }

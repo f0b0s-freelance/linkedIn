@@ -25,7 +25,6 @@ namespace LinkedInApplication.Core
                                Start = Int32.Parse(peopleNode.Attribute("start").Value)
                            };
                 }
-
             }
             catch (Exception e)
             {
