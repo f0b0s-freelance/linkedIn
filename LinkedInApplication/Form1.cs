@@ -46,7 +46,7 @@ namespace LinkedInApplication
       }
       catch (Exception ex)
       {
-        MessageBox.Show("Error", "Can't load locations, message: " + ex.Message);
+        MessageBox.Show("Can't load locations, message: " + ex.Message, "Error");
       }
     }
 
@@ -63,30 +63,59 @@ namespace LinkedInApplication
 
     private async void btnSearch_Click(object sender, EventArgs e)
     {
-      var url = ConstractRequestUri();
-      string personsToExport;
-      
-      try
+      if (string.IsNullOrEmpty(tbxPosition.Text))
       {
-        var persons = await PersonInfoDownloader.Download(url);
-        persons = await CompanyInfoDownloader.Download(persons);
-        personsToExport = PersonInfoToCsvConverter.Convert(persons);
-        richTextBox1.ResetText();
-        richTextBox1.AppendText(personsToExport);
-      }
-      catch (Exception ex)
-      {
-          MessageBox.Show("Error", "Can't load search results, message: " + ex.Message);
+        MessageBox.Show("You should enter position to search", "Error");
         return;
       }
 
+      if (cbxCategory.SelectedItem == null)
+      {
+          MessageBox.Show("You should enter category to search in", "Error");
+          return;
+      }
+
+      var url = ConstractRequestUri();
+      string personsToExport;
+      btnSearch.Enabled = false;
+      btnAddLocation.Enabled = false;
+      btnClearLocations.Enabled = false;
       try
       {
-        File.WriteAllText(string.Format("{0}.csv", DateTime.Now.ToString("yyyyMMddhhmmss")), personsToExport);
+        var persons = await PersonInfoDownloader.Download(url, ConfigurationManager.AppSettings["AccessToken"]);
+          persons = await CompanyInfoDownloader.Download(persons, ConfigurationManager.AppSettings["AccessToken"]);
+        Process(persons);
+        
+        personsToExport = PersonInfoToCsvConverter.Convert(persons);
+        File.WriteAllText(string.Format("{0}.csv", DateTime.Now.ToString("yyyyMMddHHmmss")), personsToExport);
       }
       catch (Exception ex)
       {
-          MessageBox.Show("Error", "Can't save result file, message: " + ex.Message);
+        MessageBox.Show("Can't load search results, message: " + ex.Message, "Error");
+      }
+
+      btnSearch.Enabled = true;
+      btnAddLocation.Enabled = true;
+      btnClearLocations.Enabled = true;
+    }
+
+    private void Process(IEnumerable<PersonInfo> persons)
+    {
+      foreach (var person in persons)
+      {
+          string email = "";
+          if (!string.IsNullOrEmpty(person.CompanyWebSite))
+          {
+              var uri = new Uri(person.CompanyWebSite);
+              email = uri.Host;
+
+              if (email.StartsWith("www."))
+              {
+                  email = email.Substring(4, email.Length - 4);
+              }
+
+              email = string.Format("{0}@{1}", person.FirstName, email);
+          }
       }
     }
 
@@ -142,6 +171,12 @@ namespace LinkedInApplication
           });
         }
       }
+    }
+
+    private void btnClearLocations_Click(object sender, EventArgs e)
+    {
+      locatonsDictionary.Clear();
+      cbxLocations.Items.Clear();
     }
   }
 }

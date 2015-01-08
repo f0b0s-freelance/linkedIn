@@ -10,9 +10,6 @@ namespace LinkedInApplication.Core
 {
   public class LocationInfoDownloader
   {
-    private const string Key =
-      "AQVfV_0s3MadzEi57qg6Qx7iftX5t-LOEVlzYssooo7-VMqsLpDOHlnQ9vLQaXkvOT_I5Y-ZPsLCOABnsdDggF9FEQ8hQD8dWvNm0Wfl9zdPw1Y-nRozmjjR5yelkmOsNuPzpI5K_SqTOKqLVWVAhoQnrSslsaClONKV8k-svtRRq-JdTCI";
-
     public static async Task<IEnumerable<LocationInfo>> Download(string query)
     {
       var uri = new Uri(string.Format("https://www.linkedin.com/ta/region?query={0}", query));

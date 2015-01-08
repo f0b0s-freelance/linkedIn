@@ -160,5 +160,12 @@ namespace LinkedInApplicationTests
 
             Console.WriteLine(result);
         }
+
+      [Test]
+      public void TestUrl()
+      {
+        var uri = new Uri("http://www.rambler.ru");
+        Console.WriteLine(uri.Host.TrimStart(new char[]{'w'}));
+      }
     }
 }

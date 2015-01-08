@@ -10,10 +10,7 @@ namespace LinkedInApplication.Core
 {
     public static class CompanyInfoDownloader
     {
-        private const string Key =
-    "AQVfV_0s3MadzEi57qg6Qx7iftX5t-LOEVlzYssooo7-VMqsLpDOHlnQ9vLQaXkvOT_I5Y-ZPsLCOABnsdDggF9FEQ8hQD8dWvNm0Wfl9zdPw1Y-nRozmjjR5yelkmOsNuPzpI5K_SqTOKqLVWVAhoQnrSslsaClONKV8k-svtRRq-JdTCI";
-
-      public static async Task<IEnumerable<PersonInfo>> Download(IEnumerable<PersonInfo> personsInfo)
+      public static async Task<IEnumerable<PersonInfo>> Download(IEnumerable<PersonInfo> personsInfo, string key)
       {
         foreach (var personInfo in personsInfo)
         {
@@ -23,7 +20,7 @@ namespace LinkedInApplication.Core
           }
 
           var uri = new Uri(string.Format("https://api.linkedin.com/v1/companies/{0}:(id,name,website-url)", personInfo.CompanyId));
-          var content = await DownloadContent(uri);
+          var content = await DownloadContent(uri, key);
           var companyInfo = CompanyInfoParser.ParseCompanyInfo(content);
           if (companyInfo != null)
           {
@@ -35,11 +32,11 @@ namespace LinkedInApplication.Core
         return personsInfo;
       }
 
-      private static async Task<string> DownloadContent(Uri url)
+      private static async Task<string> DownloadContent(Uri url, string key)
         {
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Key);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", key);
                 var result = await httpClient.GetAsync(url);
                 var content = await result.Content.ReadAsStringAsync();
                 return content;
