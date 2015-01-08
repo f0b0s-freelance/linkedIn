@@ -36,6 +36,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,12 +47,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddLocationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddLocationForm.Designer.cs">
+      <DependentUpon>AddLocationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\CompanyInfo.cs" />
     <Compile Include="Core\CompanyInfoDownloader.cs" />
     <Compile Include="Core\CompanyInfoParser.cs" />
     <Compile Include="Core\FacetItemInfo.cs" />
     <Compile Include="Core\FacetItemInfoParser.cs" />
     <Compile Include="Core\IndustryFacetStaticInfo.cs" />
+    <Compile Include="Core\LocationInfo.cs" />
+    <Compile Include="Core\LocationInfoDownloader.cs" />
+    <Compile Include="Core\LocationInfoParser.cs" />
     <Compile Include="Core\PersonInfoDownloader.cs" />
     <Compile Include="Core\PersonInfoParser.cs" />
     <Compile Include="Core\PersonInfoToCsvConverter.cs" />
@@ -73,6 +83,9 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddLocationForm.resx">
+      <DependentUpon>AddLocationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

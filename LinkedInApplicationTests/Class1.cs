@@ -5,6 +5,9 @@ using System.Net.Http.Headers;
 using System.Xml.Linq;
 using NUnit.Framework;
 using LinkedInApplication.Core;
+using System.Text;
+using System.IO;
+using System.Runtime.Serialization.Json;
 
 namespace LinkedInApplicationTests
 {
@@ -137,6 +140,24 @@ namespace LinkedInApplicationTests
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", key);
             var result = httpClient.GetAsync(url).Result;
+            Console.WriteLine(result);
+        }
+
+        [Test]
+        public void GetLocations()
+        {
+            var url = new Uri("https://www.linkedin.com/ta/region?query=v");
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", key);
+            var result = httpClient.GetAsync(url).Result;
+
+          var response = result.Content.ReadAsStringAsync().Result;
+            byte[] byteArray = Encoding.UTF8.GetBytes(response);
+            var stream = new MemoryStream(byteArray);
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Locations));
+            Locations locationInfos = (Locations)serializer.ReadObject(stream);
+
+
             Console.WriteLine(result);
         }
     }

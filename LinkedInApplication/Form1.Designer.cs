@@ -37,6 +37,7 @@
             this.cbxLocations = new System.Windows.Forms.CheckedListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAddLocation = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +53,7 @@
             // 
             // tbxPosition
             // 
-            this.tbxPosition.Location = new System.Drawing.Point(71, 29);
+            this.tbxPosition.Location = new System.Drawing.Point(89, 27);
             this.tbxPosition.Name = "tbxPosition";
             this.tbxPosition.Size = new System.Drawing.Size(156, 20);
             this.tbxPosition.TabIndex = 1;
@@ -77,7 +78,7 @@
             // cbxCategory
             // 
             this.cbxCategory.FormattingEnabled = true;
-            this.cbxCategory.Location = new System.Drawing.Point(71, 56);
+            this.cbxCategory.Location = new System.Drawing.Point(89, 55);
             this.cbxCategory.Name = "cbxCategory";
             this.cbxCategory.Size = new System.Drawing.Size(156, 21);
             this.cbxCategory.TabIndex = 4;
@@ -94,9 +95,9 @@
             // cbxLocations
             // 
             this.cbxLocations.FormattingEnabled = true;
-            this.cbxLocations.Location = new System.Drawing.Point(18, 100);
+            this.cbxLocations.Location = new System.Drawing.Point(12, 92);
             this.cbxLocations.Name = "cbxLocations";
-            this.cbxLocations.Size = new System.Drawing.Size(209, 229);
+            this.cbxLocations.Size = new System.Drawing.Size(233, 199);
             this.cbxLocations.TabIndex = 6;
             // 
             // menuStrip1
@@ -116,11 +117,22 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
+            // btnAddLocation
+            // 
+            this.btnAddLocation.Location = new System.Drawing.Point(170, 306);
+            this.btnAddLocation.Name = "btnAddLocation";
+            this.btnAddLocation.Size = new System.Drawing.Size(75, 23);
+            this.btnAddLocation.TabIndex = 8;
+            this.btnAddLocation.Text = "Add location";
+            this.btnAddLocation.UseVisualStyleBackColor = true;
+            this.btnAddLocation.Click += new System.EventHandler(this.btnAddLocation_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 341);
+            this.Controls.Add(this.btnAddLocation);
             this.Controls.Add(this.cbxLocations);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbxCategory);
@@ -150,6 +162,7 @@
         private System.Windows.Forms.CheckedListBox cbxLocations;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.Button btnAddLocation;
     }
 }
 

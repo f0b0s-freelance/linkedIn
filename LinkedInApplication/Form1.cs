@@ -8,14 +8,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LinkedInApplication.Core;
 using System.Configuration;
+using System.Diagnostics;
+using System.Text;
 
 namespace LinkedInApplication
 {
   public partial class Form1 : Form
   {
+      private Dictionary<string, FacetItemInfo> locatonsDictionary;
+
     public Form1()
     {
       InitializeComponent();
+      locatonsDictionary = new Dictionary<string, FacetItemInfo>();
     }
 
     protected override void OnHandleCreated(EventArgs e)
@@ -29,8 +34,15 @@ namespace LinkedInApplication
     {
       try
       {
-          var locations = await LoadLocations(new Uri("https://api.linkedin.com/v1/people-search:(facets:(code,buckets:(code,name)))?facets=location"));
-          cbxLocations.Items.AddRange(locations.ToArray());
+        var locations = await LoadLocations(new Uri("https://api.linkedin.com/v1/people-search:(facets:(code,buckets:(code,name)))?facets=location"));
+        foreach (var item in locations)
+        {
+          cbxLocations.Items.Add(item);
+          if (!locatonsDictionary.ContainsKey(item.Name))
+          {
+              locatonsDictionary.Add(item.Name, item);
+          }
+        }
       }
       catch (Exception ex)
       {
@@ -84,13 +96,19 @@ namespace LinkedInApplication
 
       var categoryFacet = (FacetItemInfo) cbxCategory.SelectedItem;
 
+      var locations = new StringBuilder("location");
+      foreach (var locationItem in cbxLocations.CheckedItems)
+      {
+          locations.Append("," + locatonsDictionary[locationItem.ToString()].Id);
+      }
+
       return
         new Uri(
           string.Format(
             "https://api.linkedin.com/v1/people-search:(people:(first-name,last-name,headline,positions,location:(name)))?facets={0}&facet={1}&facet={2}&title={3}&current-title=true",
             Uri.EscapeDataString("location,industry"),
             //Uri.EscapeDataString("location,ru:7487,ru:7481"),
-            Uri.EscapeDataString("location"),
+            Uri.EscapeDataString(locations.ToString()),
             Uri.EscapeDataString("industry," + categoryFacet.Id),
             position));
     }
@@ -99,6 +117,31 @@ namespace LinkedInApplication
     {
       var settingsForm = new SettingsForm();
       settingsForm.ShowDialog();
+    }
+      
+    private void btnAddLocation_Click(object sender, EventArgs e)
+    {
+      var form = new AddLocationForm();
+      var result = form.ShowDialog();
+      if (result == System.Windows.Forms.DialogResult.OK)
+      {
+        foreach (var item in form.LocationInfos)
+        {
+          if (locatonsDictionary.ContainsKey(item.Name))
+            continue;
+
+          cbxLocations.Items.Add(new FacetItemInfo
+          {
+            Id = item.Id,
+            Name = item.Name
+          });
+          locatonsDictionary.Add(item.Name, new FacetItemInfo()
+          {
+            Id = item.Id,
+            Name = item.Name
+          });
+        }
+      }
     }
   }
 }
