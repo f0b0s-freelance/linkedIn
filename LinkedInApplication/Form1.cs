@@ -8,17 +8,25 @@ using System.Windows.Forms;
 using LinkedInApplication.Core;
 using System.Configuration;
 using System.Text;
+using NLog;
 
 namespace LinkedInApplication
 {
     public partial class Form1 : Form
     {
-        private readonly Dictionary<string, FacetItemInfo> _locationsDictionary;
+        private readonly Logger _log = LogManager.GetLogger("Main");
+        private readonly Dictionary<string, FacetItemInfo> _locationsDictionary = new Dictionary<string, FacetItemInfo>();
 
         public Form1()
         {
+            _log.Info("Application starting");
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             InitializeComponent();
-            _locationsDictionary = new Dictionary<string, FacetItemInfo>();
+        }
+
+        private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        {
+            _log.Error(unhandledExceptionEventArgs.ExceptionObject);
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -46,6 +54,7 @@ namespace LinkedInApplication
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 MessageBox.Show("Can't load locations, message: " + ex.Message, "Error");
             }
         }
@@ -84,6 +93,8 @@ namespace LinkedInApplication
             }
 
             var url = ConstractRequestUri();
+            _log.Info("Search uri: " + url);
+
             btnSearch.Enabled = false;
             btnAddLocation.Enabled = false;
             btnClearLocations.Enabled = false;
@@ -98,6 +109,7 @@ namespace LinkedInApplication
             }
             catch (Exception ex)
             {
+                _log.Error(ex);
                 MessageBox.Show("Can't load search results, message: " + ex.Message, "Error");
             }
 
@@ -128,7 +140,6 @@ namespace LinkedInApplication
         private Uri ConstractRequestUri()
         {
             var position = tbxPosition.Text;
-
             var categoryFacet = (FacetItemInfo) cbxCategory.SelectedItem;
 
             var locations = new StringBuilder("location");
