@@ -12,7 +12,7 @@ namespace LinkedInApplication.Core
             try
             {
                 var element = XDocument.Parse(content);
-
+                
                 return from descedant in element.Descendants("person")
                        let firstName = descedant.Descendants("first-name").FirstOrDefault()
                        let lastName = descedant.Descendants("last-name").FirstOrDefault()

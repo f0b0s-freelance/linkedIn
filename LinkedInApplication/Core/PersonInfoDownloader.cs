@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace LinkedInApplication.Core
 {
@@ -11,6 +13,7 @@ namespace LinkedInApplication.Core
         public static async Task<IEnumerable<PersonInfo>> Download(Uri url, string key)
         {
             var content = await DownloadContent(url, key);
+            CheckthrottleLimit(content);
             var requestResultInfo = RequestResultSizeParser.Parse(content);
             var peopleInfos = new List<PersonInfo>(requestResultInfo.Total);
             peopleInfos.AddRange(PersonInfoParser.Parse(content));
@@ -19,6 +22,7 @@ namespace LinkedInApplication.Core
             {
                 var uri = new Uri(url.AbsoluteUri + String.Format("&start={0}&count={1}", i, requestResultInfo.Count));
                 content = await DownloadContent(uri, key);
+                CheckthrottleLimit(content);
                 requestResultInfo = RequestResultSizeParser.Parse(content);
                 peopleInfos.AddRange(PersonInfoParser.Parse(content));
             }
@@ -67,6 +71,18 @@ namespace LinkedInApplication.Core
                 {
 
                 }
+            }
+        }
+
+        private static void CheckthrottleLimit(string content)
+        {
+            var element = XDocument.Parse(content);
+            var xElement = element.Element("error");
+
+            if (xElement != null)
+            {
+                var error = xElement.Descendants("message").First();
+                throw new Exception(error.Value);
             }
         }
     }
