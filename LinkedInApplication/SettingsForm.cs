@@ -1,50 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LinkedInApplication
 {
-  public partial class SettingsForm : Form
-  {
-    public SettingsForm()
+    public partial class SettingsForm : Form
     {
-      InitializeComponent();
-      textBox1.Text = ConfigurationManager.AppSettings["AccessToken"];
-      tbxApiKey.Text = ConfigurationManager.AppSettings["ApiKey"];
-      tbxSecretKey.Text = ConfigurationManager.AppSettings["SecretKey"];
-    }
+        public SettingsForm()
+        {
+            InitializeComponent();
+            tbxAccessToken.Text = ConfigurationManager.AppSettings["AccessToken"];
+            tbxApiKey.Text = ConfigurationManager.AppSettings["ApiKey"];
+            tbxSecretKey.Text = ConfigurationManager.AppSettings["SecretKey"];
+            tbxRedirectUri.Text = ConfigurationManager.AppSettings["RedirectUri"];
+        }
 
-    private void button1_Click(object sender, EventArgs e)
-    {
-      var accessToken = textBox1.Text;
-      var apiKey = tbxApiKey.Text;
-      var secretKey = tbxSecretKey.Text;
-      var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-      config.AppSettings.Settings.Remove("AccessToken");
-      config.AppSettings.Settings.Remove("ApiKey");
-      config.AppSettings.Settings.Remove("SecretKey");
-      config.AppSettings.Settings.Add("AccessToken", accessToken);
-      config.AppSettings.Settings.Add("ApiKey", apiKey);
-      config.AppSettings.Settings.Add("SecretKey", secretKey);
-      config.Save(ConfigurationSaveMode.Full);
-      ConfigurationManager.RefreshSection("appSettings");
-    }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings.Remove("AccessToken");
+            config.AppSettings.Settings.Remove("ApiKey");
+            config.AppSettings.Settings.Remove("SecretKey");
+            config.AppSettings.Settings.Remove("RedirectUri");
+            config.AppSettings.Settings.Add("AccessToken", tbxAccessToken.Text);
+            config.AppSettings.Settings.Add("ApiKey", tbxApiKey.Text);
+            config.AppSettings.Settings.Add("SecretKey", tbxSecretKey.Text);
+            config.AppSettings.Settings.Add("RedirectUri", tbxRedirectUri.Text);
+            config.Save(ConfigurationSaveMode.Full);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
 
-    private void btnGenerate_Click(object sender, EventArgs e)
-    {
-        var text = string.Format("https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code" +
-                                "&code=AQTH4piKPjgAvf7JaDLSfe-Y58QyzoM44vO4DVTrMfSYtTbzFtgulyohFwhaLY-po7m3ZIOwl9mVEXBjOH6mSQPCqU1NT2chmaODVRUmh5NiNbpohis" +
-                                "&redirect_uri=http://skilleo.herokuapp.com" +
-                                "&client_id=npq2v0qgrl9y" +
-                                "&client_secret=50DUgVK6Cl6RwMRy", tbxApiKey.Text, Guid.NewGuid());
-      textBox2.Text = text;
+        private void btnGenerate_Click_1(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbxApiKey.Text))
+            {
+                MessageBox.Show("You should enter API KEY", "Error");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(tbxSecretKey.Text))
+            {
+                MessageBox.Show("You should enter Secret Key", "Error");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(tbxRedirectUri.Text))
+            {
+                MessageBox.Show("You should enter redirect Uri", "Error");
+                return;
+            }
+
+            var authForm = new GetTokenForm(tbxApiKey.Text, tbxSecretKey.Text, tbxRedirectUri.Text);
+            authForm.ShowDialog();
+            tbxAccessToken.Text = authForm.AccessToken;
+        }
     }
-  }
 }

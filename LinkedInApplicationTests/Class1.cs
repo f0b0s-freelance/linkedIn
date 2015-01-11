@@ -14,8 +14,9 @@ namespace LinkedInApplicationTests
     [TestFixture]
     public class Class1
     {
-        private const string key =
-    "AQVfV_0s3MadzEi57qg6Qx7iftX5t-LOEVlzYssooo7-VMqsLpDOHlnQ9vLQaXkvOT_I5Y-ZPsLCOABnsdDggF9FEQ8hQD8dWvNm0Wfl9zdPw1Y-nRozmjjR5yelkmOsNuPzpI5K_SqTOKqLVWVAhoQnrSslsaClONKV8k-svtRRq-JdTCI";
+        //67fc07db-3147-4c05-8e9b-3ce336fe40a2
+        //private const string key = "AQVfV_0s3MadzEi57qg6Qx7iftX5t-LOEVlzYssooo7-VMqsLpDOHlnQ9vLQaXkvOT_I5Y-ZPsLCOABnsdDggF9FEQ8hQD8dWvNm0Wfl9zdPw1Y-nRozmjjR5yelkmOsNuPzpI5K_SqTOKqLVWVAhoQnrSslsaClONKV8k-svtRRq-JdTCI";
+        private const string key = "67fc07db-3147-4c05-8e9b-3ce336fe40a2";
 
         [Test]
         public void Test()

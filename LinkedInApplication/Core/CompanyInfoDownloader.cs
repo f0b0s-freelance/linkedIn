@@ -1,38 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LinkedInApplication.Core
 {
     public static class CompanyInfoDownloader
     {
-      public static async Task<IEnumerable<PersonInfo>> Download(IEnumerable<PersonInfo> personsInfo, string key)
-      {
-        foreach (var personInfo in personsInfo)
+        public static async Task<IEnumerable<PersonInfo>> Download(IEnumerable<PersonInfo> personsInfo, string key)
         {
-          if (string.IsNullOrEmpty(personInfo.CompanyId))
-          {
-            continue;
-          }
+            foreach (var personInfo in personsInfo)
+            {
+                if (string.IsNullOrEmpty(personInfo.CompanyId))
+                {
+                    continue;
+                }
 
-          var uri = new Uri(string.Format("https://api.linkedin.com/v1/companies/{0}:(id,name,website-url)", personInfo.CompanyId));
-          var content = await DownloadContent(uri, key);
-          var companyInfo = CompanyInfoParser.ParseCompanyInfo(content);
-          if (companyInfo != null)
-          {
-            personInfo.CompanyName = companyInfo.Name;
-            personInfo.CompanyWebSite = companyInfo.Url;
-          }
+                var uri = new Uri(string.Format("https://api.linkedin.com/v1/companies/{0}:(id,name,website-url)", personInfo.CompanyId));
+                var content = await DownloadContent(uri, key);
+                var companyInfo = CompanyInfoParser.ParseCompanyInfo(content);
+                
+                if (companyInfo == null) 
+                    continue;
+
+                personInfo.CompanyName = companyInfo.Name;
+                personInfo.CompanyWebSite = companyInfo.Url;
+            }
+
+            return personsInfo;
         }
 
-        return personsInfo;
-      }
-
-      private static async Task<string> DownloadContent(Uri url, string key)
+        private static async Task<string> DownloadContent(Uri url, string key)
         {
             using (var httpClient = new HttpClient())
             {
