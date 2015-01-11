@@ -39,12 +39,24 @@
             this.btnAddLocation = new System.Windows.Forms.Button();
             this.btnClearLocations = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.lblTotal = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(245, 306);
+            this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSearch.Location = new System.Drawing.Point(876, 392);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 0;
@@ -87,10 +99,12 @@
             // 
             // cbxLocations
             // 
+            this.cbxLocations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.cbxLocations.FormattingEnabled = true;
-            this.cbxLocations.Location = new System.Drawing.Point(12, 92);
+            this.cbxLocations.Location = new System.Drawing.Point(15, 19);
             this.cbxLocations.Name = "cbxLocations";
-            this.cbxLocations.Size = new System.Drawing.Size(308, 199);
+            this.cbxLocations.Size = new System.Drawing.Size(274, 259);
             this.cbxLocations.TabIndex = 6;
             // 
             // menuStrip1
@@ -99,7 +113,7 @@
             this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(892, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1050, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -112,7 +126,8 @@
             // 
             // btnAddLocation
             // 
-            this.btnAddLocation.Location = new System.Drawing.Point(12, 306);
+            this.btnAddLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddLocation.Location = new System.Drawing.Point(121, 289);
             this.btnAddLocation.Name = "btnAddLocation";
             this.btnAddLocation.Size = new System.Drawing.Size(75, 23);
             this.btnAddLocation.TabIndex = 8;
@@ -122,7 +137,8 @@
             // 
             // btnClearLocations
             // 
-            this.btnClearLocations.Location = new System.Drawing.Point(107, 306);
+            this.btnClearLocations.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClearLocations.Location = new System.Drawing.Point(202, 289);
             this.btnClearLocations.Name = "btnClearLocations";
             this.btnClearLocations.Size = new System.Drawing.Size(98, 23);
             this.btnClearLocations.TabIndex = 9;
@@ -132,21 +148,106 @@
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(326, 12);
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7});
+            this.listView1.FullRowSelect = true;
+            this.listView1.Location = new System.Drawing.Point(343, 12);
+            this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(554, 279);
+            this.listView1.Size = new System.Drawing.Size(695, 359);
+            this.listView1.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView1.TabIndex = 10;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Company name";
+            this.columnHeader1.Width = 109;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "First name";
+            this.columnHeader2.Width = 85;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Second Name";
+            this.columnHeader3.Width = 95;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Position";
+            this.columnHeader4.Width = 97;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Web site url";
+            this.columnHeader5.Width = 101;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "State/city";
+            this.columnHeader6.Width = 102;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Email";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.cbxLocations);
+            this.groupBox1.Controls.Add(this.btnAddLocation);
+            this.groupBox1.Controls.Add(this.btnClearLocations);
+            this.groupBox1.Location = new System.Drawing.Point(14, 93);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(306, 318);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Location";
+            // 
+            // btnExport
+            // 
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExport.Enabled = false;
+            this.btnExport.Location = new System.Drawing.Point(963, 392);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
+            this.btnExport.TabIndex = 12;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Location = new System.Drawing.Point(945, 376);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(68, 13);
+            this.lblTotal.TabIndex = 13;
+            this.lblTotal.Text = "Total rows: 0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(892, 341);
+            this.ClientSize = new System.Drawing.Size(1050, 426);
+            this.Controls.Add(this.lblTotal);
+            this.Controls.Add(this.btnExport);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.btnClearLocations);
-            this.Controls.Add(this.btnAddLocation);
-            this.Controls.Add(this.cbxLocations);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbxCategory);
             this.Controls.Add(this.label1);
@@ -158,6 +259,7 @@
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -176,6 +278,16 @@
         private System.Windows.Forms.Button btnAddLocation;
         private System.Windows.Forms.Button btnClearLocations;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Label lblTotal;
     }
 }
 

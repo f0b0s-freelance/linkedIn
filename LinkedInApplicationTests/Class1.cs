@@ -168,5 +168,61 @@ namespace LinkedInApplicationTests
         var uri = new Uri("http://www.rambler.ru");
         Console.WriteLine(uri.Host.TrimStart(new char[]{'w'}));
       }
+
+        [Test]
+        public void Test234()
+        {
+            var uri = "www.google.com";
+            //var url = new Uri(uri);
+            Uri u;
+            if (Uri.TryCreate(uri, UriKind.RelativeOrAbsolute, out u))
+            {
+                Console.WriteLine("Yes");
+                Console.WriteLine(u);
+            }
+            var res = Uri.CheckSchemeName(uri);
+            var res1 = Uri.CheckHostName(uri);
+            Console.WriteLine(res);
+            Console.WriteLine(res1);
+        }
+
+        [Test]
+        public void Testtre()
+        {
+            const string t = @"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>" +
+"<people-search>" +
+  @"<people total=""1"">" +
+    "<person>" +
+      @"<positions total=""2"">" +
+        "<position>" +
+          "<id>599222310</id>" +
+          "<title>CEO</title>" +
+          "<summary>We live in a connected world. To thrive and progress, we need to understand and influence the web of connections that surrounds us.</summary>" +
+          "<start-date>" +
+            "<year>2013</year>" +
+            "<month>12</month>" +
+          "</start-date>" +
+          "<is-current>true</is-current>" +
+          "<company>" +
+            "<name>DLS</name>" +
+          "</company>" +
+        "</position>" +
+        "<position>" +
+          "<id>517993058</id>" +
+          "<title>Head of Media Development</title>" +
+          "<is-current>true</is-current>" +
+          "<company>" +
+            "<id>2715562</id>" +
+            "<name>MIT Labs</name>" +
+          "</company>" +
+        "</position>" +
+      "</positions>" +
+    "</person>"  +
+  "</people>" +
+"</people-search>";
+
+
+            var result = PersonInfoParser.Parse(t);
+        }
     }
 }

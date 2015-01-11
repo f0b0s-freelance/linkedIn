@@ -16,9 +16,11 @@ namespace LinkedInApplication.Core
                 return from descedant in element.Descendants("person")
                        let firstName = descedant.Descendants("first-name").FirstOrDefault()
                        let lastName = descedant.Descendants("last-name").FirstOrDefault()
-                       let companyName = descedant.Descendants("company").Descendants("name").FirstOrDefault()
-                       let position = descedant.Descendants("position").FirstOrDefault(x => x.Descendants("is-current").First().Value == "true")
-                       let companyId = position != null ? position.Descendants("company").Descendants("id").FirstOrDefault() : null
+                       let positions = descedant.Descendants("position").Where(x => x.Descendants("is-current").First().Value == "true")
+                       let companyIdNode = positions.Any() ? positions.Descendants("company").FirstOrDefault(x => x.Descendants("id").Any()) : null
+                       let companyNameNode = positions.Any() ? positions.Descendants("company").FirstOrDefault(x => x.Descendants("name").Any()) : null
+                       let companyId = companyIdNode != null ? companyIdNode.Descendants("id").FirstOrDefault() : null
+                       let companyName = companyNameNode != null ? companyNameNode.Descendants("name").FirstOrDefault() : null
                        let headline = descedant.Descendants("headline").FirstOrDefault()
                        let location = descedant.Descendants("location").Descendants("name").FirstOrDefault()
                        select new PersonInfo

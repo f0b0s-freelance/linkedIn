@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace LinkedInApplication
     {
         private readonly Logger _log = LogManager.GetLogger("Main");
         private readonly Dictionary<string, FacetItemInfo> _locationsDictionary = new Dictionary<string, FacetItemInfo>();
+        private IEnumerable<PersonInfo> _currentResult;
 
         public Form1()
         {
@@ -95,17 +97,25 @@ namespace LinkedInApplication
             var url = ConstractRequestUri();
             _log.Info("Search uri: " + url);
 
+            btnExport.Enabled = false;
             btnSearch.Enabled = false;
             btnAddLocation.Enabled = false;
             btnClearLocations.Enabled = false;
+            listView1.Items.Clear();
+            lblTotal.Text = "Total rows: 0";
+
             try
             {
                 var persons = await PersonInfoDownloader.Download(url, ConfigurationManager.AppSettings["AccessToken"]);
                 persons = await CompanyInfoDownloader.Download(persons, ConfigurationManager.AppSettings["AccessToken"]);
-                Process(persons);
+                PersonInfoDownloader.PostProcess(persons);
+                _currentResult = persons;
+                LoadResultTable(persons);
 
-                var personsToExport = PersonInfoToCsvConverter.Convert(persons);
-                File.WriteAllText(string.Format("{0}.csv", DateTime.Now.ToString("yyyyMMddHHmmss")), personsToExport);
+                var count = persons.Count();
+                _log.Info("Search completed: " + count);
+                lblTotal.Text = "Total rows: " + count;
+                btnExport.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -118,22 +128,22 @@ namespace LinkedInApplication
             btnClearLocations.Enabled = true;
         }
 
-        private void Process(IEnumerable<PersonInfo> persons)
+        private void LoadResultTable(IEnumerable<PersonInfo> persons)
         {
             foreach (var person in persons)
             {
-                if (!string.IsNullOrEmpty(person.CompanyWebSite))
-                {
-                    var uri = new Uri(person.CompanyWebSite);
-                    var email = uri.Host;
-
-                    if (email.StartsWith("www."))
-                    {
-                        email = email.Substring(4, email.Length - 4);
-                    }
-
-                    email = string.Format("{0}@{1}", person.FirstName, email);
-                }
+                var items = new[]
+                            {
+                                person.CompanyName,
+                                person.FirstName,
+                                person.LastName,
+                                person.Headline,
+                                person.CompanyWebSite,
+                                person.CompanyLocation,
+                                person.Email
+                            };
+                var listViewItem = new ListViewItem(items);
+                listView1.Items.Add(listViewItem);
             }
         }
 
@@ -195,6 +205,29 @@ namespace LinkedInApplication
         {
             _locationsDictionary.Clear();
             cbxLocations.Items.Clear();
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog
+                                  {
+                                      RestoreDirectory = true
+                                  };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var personsToExport = PersonInfoToCsvConverter.Convert(_currentResult);
+                    File.WriteAllText(string.Format("{0}.csv", DateTime.Now.ToString("yyyyMMddHHmmss")), personsToExport);
+                    File.WriteAllText(saveFileDialog.FileName, personsToExport);
+                }
+                catch (Exception exception)
+                {
+                    _log.Error(exception);
+                    MessageBox.Show("Can't save result file, error: " + exception.Message, "Error");
+                }
+            }
         }
     }
 }

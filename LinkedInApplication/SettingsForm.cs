@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows.Forms;
+using NLog;
 
 namespace LinkedInApplication
 {
     public partial class SettingsForm : Form
     {
+        private readonly Logger _log = LogManager.GetLogger("Settings");
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -50,8 +53,10 @@ namespace LinkedInApplication
                 return;
             }
 
+            _log.Info("Token request");
             var authForm = new GetTokenForm(tbxApiKey.Text, tbxSecretKey.Text, tbxRedirectUri.Text);
             authForm.ShowDialog();
+            _log.Info("Token obtained: " + authForm.AccessToken.Length);
             tbxAccessToken.Text = authForm.AccessToken;
         }
     }

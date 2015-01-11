@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using System.Windows.Forms;
 using LinkedInApplication.Core;
+using NLog;
 
 namespace LinkedInApplication
 {
@@ -14,6 +15,7 @@ namespace LinkedInApplication
         private readonly string _apiKey;
         private readonly string _apiSecret;
         private readonly string _redirectUri;
+        private readonly Logger _log = LogManager.GetLogger("Token");
 
         public string AccessToken { get; private set; }
 
@@ -48,6 +50,7 @@ namespace LinkedInApplication
                                   "&client_id=" + _apiKey + 
                                   "&client_secret=" + _apiSecret);
                 
+                _log.Info("Starting token request");
                 using (var httpClient = new HttpClient())
                 {
                     var result = httpClient.GetAsync(url).Result;
